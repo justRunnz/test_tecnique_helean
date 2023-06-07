@@ -14,6 +14,8 @@ export default function PrecisionRoll({R}) {
         dataKey="value"
         innerRadius={25}
         outerRadius={32}
+        startAngle={90}
+        endAngle={-360}
       >
         Test React - Node JS - Display Data
         {data.map((entry, index) => {
