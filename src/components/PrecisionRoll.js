@@ -6,7 +6,7 @@ export default function PrecisionRoll({R}) {
   const data = [{value: R}, {value: 100 - R}, {value: 1}];
 
   return (
-    <PieChart width={100} height={75}>
+    <PieChart width={75} height={75}>
       <Pie
         data={data}
         cx="50%"
@@ -15,7 +15,7 @@ export default function PrecisionRoll({R}) {
         innerRadius={25}
         outerRadius={32}
       >
-        Test React - Node JS - Display Data 2
+        Test React - Node JS - Display Data
         {data.map((entry, index) => {
           if (index === 1 || index === 2) {
             return <Cell key={`cell-${index}`} fill="#f3f6f9" />;

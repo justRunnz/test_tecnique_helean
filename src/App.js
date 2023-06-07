@@ -7,13 +7,13 @@ function App() {
   const [visible, setVisible] = useState(false);
   const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [shopId, setShopId] = useState("");
 
   useEffect(() => {
     loading &&
       (async () => {
         const response = await fetch("http://localhost:8000/data");
         const data = await response.json();
-        console.log(data);
         setResult(data);
         setLoading(false);
       })();
@@ -34,27 +34,66 @@ function App() {
     <div className="App">
       <h2 className="page_title">Test React - Node JS - Display Data</h2>
       {!loading && (
-        <motion.div
-          layoutId="shop_item"
-          className="shop_item"
-          onClick={() => setVisible(true)}
-        >
-          <img src={result.shop_picture} className="shop_item_picture" />
-          <div className="shop_info_container">
-            <p>{result?.shop_name}</p>
-          </div>
-        </motion.div>
+        <div className="shop_container" style={{display: "flex", gap: "40px"}}>
+          <motion.div
+            layoutId="shop_item1"
+            className="shop_item"
+            onClick={() => {
+              setVisible(true);
+              setShopId("shop_item1");
+            }}
+          >
+            <img src={result.shop_picture} className="shop_item_picture" />
+            <div className="shop_info_container">
+              <p>{result?.shop_name}</p>
+            </div>
+          </motion.div>
+          <motion.div
+            layoutId="shop_item2"
+            className="shop_item"
+            onClick={() => {
+              setVisible(true);
+              setShopId("shop_item2");
+            }}
+          >
+            <img src={result.shop_picture} className="shop_item_picture" />
+            <div className="shop_info_container">
+              <p>{result?.shop_name}</p>
+            </div>
+          </motion.div>
+          <motion.div
+            layoutId="shop_item3"
+            className="shop_item"
+            onClick={() => {
+              setVisible(true);
+              setShopId("shop_item3");
+            }}
+          >
+            <img src={result.shop_picture} className="shop_item_picture" />
+            <div className="shop_info_container">
+              <p>{result?.shop_name}</p>
+            </div>
+          </motion.div>
+        </div>
       )}
       {/* <PrecisionRoll R={0.5} /> */}
       {!loading && visible && (
         <AnimatePresence>
-          <div className="popup">
+          <motion.div
+            key="backdrop"
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{delay: 0.1}}
+            className="popup"
+          >
             <motion.div
               key="modal"
               initial={{opacity: 0}}
               animate={{opacity: 1}}
               exit={{opacity: 0}}
-              layoutId="shop_item"
+              transition={{delay: 0.2}}
+              layoutId={shopId}
               className="popup_inner"
             >
               <button
@@ -66,15 +105,31 @@ function App() {
               <div className="popup_header">
                 <motion.img
                   layoutId="shop_item_picture"
+                  initial={{opacity: 0}}
+                  animate={{opacity: 1}}
+                  exit={{opacity: 0}}
+                  transition={{delay: 0.3}}
                   src={result?.shop_picture}
                   className="shop_picture"
                 />
                 <motion.div className="shop_info_container">
-                  <div className="shop_precision">
+                  <motion.div
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    exit={{opacity: 0}}
+                    transition={{delay: 0.4}}
+                    className="shop_precision"
+                  >
                     <p className="shop_precision_text">Score Total</p>
                     <PrecisionRoll R={result?.total_shop_score / 100} />
-                  </div>
-                  <div className="shop_info">
+                  </motion.div>
+                  <motion.div
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    exit={{opacity: 0}}
+                    transition={{delay: 0.5}}
+                    className="shop_info"
+                  >
                     <p className="shop_name">{result?.shop_name}</p>
                     <p className="shop_name">{result?.shop_adress}</p>
                     <p className="shop_name">
@@ -82,21 +137,18 @@ function App() {
                         " " +
                         result?.shop_manager_surname}
                     </p>
-                  </div>
+                  </motion.div>
                 </motion.div>
               </div>
               <div className="popup_body">
                 {result?.data.map((item, index) => (
                   <motion.div
-                    className={`popup_body_container ${
-                      index === 0
-                        ? "one"
-                        : index === 1
-                        ? "two"
-                        : index === 2
-                        ? "three"
-                        : "four"
-                    }`}
+                    key={index}
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    exit={{opacity: 0}}
+                    transition={{delay: 0.6 + index * 0.1}}
+                    className={"popup_body_container"}
                   >
                     <motion.div className="popup_body_header">
                       <motion.p className="popup_body_header_text">
@@ -109,15 +161,21 @@ function App() {
                         {item.mean_shop}
                       </p>
                       <div className="popup_body_divider" />
-                      <span className="popup_body_content_text">
+                      <motion.span
+                        initial={{opacity: 0}}
+                        animate={{opacity: 1}}
+                        exit={{opacity: 0}}
+                        transition={{delay: 0.6 + index * 0.15}}
+                        className="popup_body_content_text"
+                      >
                         <PrecisionRoll R={item?.R} />
-                      </span>
+                      </motion.span>
                     </div>
                   </motion.div>
                 ))}
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         </AnimatePresence>
       )}
     </div>

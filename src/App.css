@@ -135,27 +135,10 @@
 .popup_body{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
-  grid-template-areas: "one three"
-                       "two four";
+  grid-template-rows: 1fr 1fr;
+
   gap: 20px;
   margin-top: 40px;
-}
-
-.one {
-  grid-area: one;
-}
-
-.two {
-  grid-area: two;
-}
-
-.three {
-  grid-area: three;
-}
-
-.four {
-  grid-area: four;
 }
 
 .popup_body_container{
