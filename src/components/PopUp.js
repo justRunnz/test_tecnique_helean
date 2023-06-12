@@ -25,7 +25,7 @@ function PopUp({setVisible, result, shopId}) {
           className="close_popup_button"
           onClick={() => setVisible(false)}
         >
-          Close
+          Fermer
         </button>
         <div className="popup_header">
           <motion.img
@@ -48,21 +48,21 @@ function PopUp({setVisible, result, shopId}) {
               <p className="shop_precision_text">Score Total</p>
               <PrecisionRoll R={result?.total_shop_score / 100} />
             </motion.div>
-            <motion.div
-              initial={{opacity: 0}}
-              animate={{opacity: 1}}
-              exit={{opacity: 0}}
-              transition={{delay: 0.5}}
-              className="shop_info"
-            >
-              <p className="shop_name">{result?.shop_name}</p>
-              <p className="shop_name">{result?.shop_adress}</p>
-              <p className="shop_name">
-                {result?.shop_manager_name + " " + result?.shop_manager_surname}
-              </p>
-            </motion.div>
           </motion.div>
         </div>
+        <motion.div
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          exit={{opacity: 0}}
+          transition={{delay: 0.5}}
+          className="shop_info"
+        >
+          <p className="shop_name">{result?.shop_name}</p>
+          <p className="shop_name">{result?.shop_adress}</p>
+          <p className="shop_name">
+            {result?.shop_manager_name + " " + result?.shop_manager_surname}
+          </p>
+        </motion.div>
         <div className="popup_body">
           {result?.data.map((item, index) => (
             <motion.div
