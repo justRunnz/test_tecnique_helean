@@ -1,6 +1,8 @@
 import {motion} from "framer-motion";
 import React from "react";
 import PrecisionRoll from "./PrecisionRoll";
+import {CgClose} from "react-icons/cg";
+import AnimatedDiv from "./AnimatedDiv";
 
 function PopUp({setVisible, result, shopId}) {
   return (
@@ -25,7 +27,7 @@ function PopUp({setVisible, result, shopId}) {
           className="close_popup_button"
           onClick={() => setVisible(false)}
         >
-          Fermer
+          <CgClose size={25} />
         </button>
         <div className="popup_header">
           <motion.img
@@ -37,7 +39,7 @@ function PopUp({setVisible, result, shopId}) {
             src={result?.shop_picture}
             className="shop_picture"
           />
-          <motion.div className="shop_info_container">
+          <motion.div>
             <motion.div
               initial={{opacity: 0}}
               animate={{opacity: 1}}
@@ -65,12 +67,9 @@ function PopUp({setVisible, result, shopId}) {
         </motion.div>
         <div className="popup_body">
           {result?.data.map((item, index) => (
-            <motion.div
+            <AnimatedDiv
               key={index}
-              initial={{opacity: 0}}
-              animate={{opacity: 1}}
-              exit={{opacity: 0}}
-              transition={{delay: 0.6 + index * 0.1}}
+              delay={0.6 + index * 0.1}
               className={"popup_body_container"}
             >
               <motion.div className="popup_body_header">
@@ -92,7 +91,7 @@ function PopUp({setVisible, result, shopId}) {
                   <PrecisionRoll R={item?.R} />
                 </motion.span>
               </div>
-            </motion.div>
+            </AnimatedDiv>
           ))}
         </div>
       </motion.div>
